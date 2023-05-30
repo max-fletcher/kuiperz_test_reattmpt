@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
 
             DB::table('accounts')->insert([
                 'account_number'   => 10000000 + $i,
+                'nid_number'       => 'NID' . rand(10000000, 99999999),
                 'email'            => fake()->email(),
                 'balance'          => rand(1000, 10000000),
                 'status'           => $statuses[array_rand($statuses)],

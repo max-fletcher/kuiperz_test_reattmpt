@@ -5,6 +5,8 @@ import axiosClient from '../axios'
 
 const CreateAccount = () => {
 
+   const [email, setEmail] = useState('')
+   const [nidNumber, setNidNumber] = useState('')
    const [balance, setBalance] = useState('')
    const [status, setStatus] = useState('')
    const [branch, setBranch] = useState('')
@@ -63,8 +65,14 @@ const CreateAccount = () => {
    const create_account = async (e) => {
       e.preventDefault()
 
+      // CLEAR ERRORS
+      setError('')
+      setMessage('')
+
       try {
          const response = await axiosClient.post('/accounts/store', {
+            nid_number: nidNumber,
+            email: email,
             account_type_id: accountType,
             branch_id: branch,
             balance: balance,
@@ -75,10 +83,12 @@ const CreateAccount = () => {
             // console.log(response.data)
             setMessage(response.data.message)
             // CLEAR UP INPUT FIELDS
-            setAccountType('')
-            setAccountType('')
+            setNidNumber('')
+            setEmail('')
             setBalance('')
             setStatus('')
+            setBranch('')
+            setAccountType('')
          }
       } catch (error) {
          // console.log(error.response.status, error.response.data.message)
@@ -126,9 +136,48 @@ const CreateAccount = () => {
                   </p>
 
                   <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+                     <div className="sm:col-span-3">
+                        <label htmlFor="nid_number" className="block text-sm font-medium leading-6 text-gray-900">
+                           NID Number
+                        </label>
+                        <div className="mt-2">
+                           <input
+                              type="text"
+                              min="1"
+                              name="nid_number"
+                              id="nid_number"
+                              autoComplete="off"
+                              value={nidNumber}
+                              onChange={(e) => setNidNumber(e.target.value)}
+                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                              placeholder="Enter NID Number"
+                           />
+                        </div>
+                     </div>
+
+                     <div className="sm:col-span-3">
+                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                           Email Address
+                        </label>
+                        <div className="mt-2">
+                           <input
+                              type="email"
+                              min="1"
+                              name="email"
+                              id="email"
+                              autoComplete="off"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                              placeholder="Enter Email Address"
+                           />
+                        </div>
+                     </div>
+
                      <div className="sm:col-span-3">
                         <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
-                           Title
+                           Balance
                         </label>
                         <div className="mt-2">
                            <input

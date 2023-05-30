@@ -22,7 +22,11 @@ class AccountUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $account_id = $this->route('account_id');
+
         return [
+            'nid_number'        => ['required', 'string', 'max:255'],
+            'email'             => ['required', 'string', 'email:rfc,dns', 'unique:accounts,email,'.$account_id],
             'account_type_id'   => ['required', 'numeric', 'integer', 'exists:account_types,id'],
             'branch_id'         => ['required', 'numeric', 'integer', 'exists:branches,id'],
             'balance'           => ['required', 'numeric', 'integer', 'min:0', 'max:18446744073709551615'],

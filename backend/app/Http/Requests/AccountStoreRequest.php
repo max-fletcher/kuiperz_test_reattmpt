@@ -23,6 +23,8 @@ class AccountStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'nid_number'        => ['required', 'string', 'max:255'],
+            'email'             => ['required', 'string', 'email:rfc,dns', 'unique:accounts,email'],
             'account_type_id'   => ['required', 'numeric', 'integer', 'exists:account_types,id'],
             'branch_id'         => ['required', 'numeric', 'integer', 'exists:branches,id'],
             'balance'           => ['required', 'numeric', 'integer', 'min:0', 'max:18446744073709551615'],

@@ -7,11 +7,15 @@ const EditAccount = () => {
 
    const { account_id } = useParams()
 
+   const [oldEmail, setOldEmail] = useState('')
+   const [oldNidNumber, setOldNidNumber] = useState('')
    const [oldBalance, setOldBalance] = useState('')
    const [oldStatus, setOldStatus] = useState('')
    const [oldBranch, setOldBranch] = useState('')
    const [oldAccountType, setOldAccountType] = useState('')
 
+   const [email, setEmail] = useState('')
+   const [nidNumber, setNidNumber] = useState('')
    const [balance, setBalance] = useState('')
    const [status, setStatus] = useState('')
    const [branch, setBranch] = useState('')
@@ -71,12 +75,15 @@ const EditAccount = () => {
          const response = await axiosClient.get(`/accounts/show/${account_id}`)
 
          // console.log(response.data.post)
-
+         setOldNidNumber(response.data.account.nid_number)
+         setOldEmail(response.data.account.email)
          setOldBalance(response.data.account.balance)
          setOldStatus(response.data.account.status)
          setOldBranch(response.data.account.branch_id)
          setOldAccountType(response.data.account.account_type_id)
 
+         setNidNumber(response.data.account.nid_number)
+         setEmail(response.data.account.email)
          setBalance(response.data.account.balance)
          setStatus(response.data.account.status)
          setBranch(response.data.account.branch_id)
@@ -97,8 +104,14 @@ const EditAccount = () => {
    const update_account = async (e) => {
       e.preventDefault()
 
+      // CLEAR ERRORS
+      setError('')
+      setMessage('')
+
       try {
          const response = await axiosClient.patch(`/accounts/update/${account_id}`, {
+            nid_number: nidNumber,
+            email: email,
             account_type_id: accountType,
             branch_id: branch,
             balance: balance,
@@ -111,16 +124,19 @@ const EditAccount = () => {
          // console.log(response.data.categories)
       } catch (error) {
          // console.log(error.response.status, error.response.data.message)
-
+         setNidNumber(oldNidNumber)
+         setEmail(oldEmail)
          setBalance(oldBalance)
          setStatus(oldStatus)
          setBranch(oldBranch)
          setAccountType(oldAccountType)
+
+         setError(error.response.data.message)
       }
    }
 
    return (
-      <PageComponent title='Edit Post'>
+      <PageComponent title='Edit Account'>
 
          {message && (
             <div className="bg-green-100 my-3 border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md" role="alert">
@@ -159,9 +175,48 @@ const EditAccount = () => {
                   </p>
 
                   <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+                     <div className="sm:col-span-3">
+                        <label htmlFor="nid_number" className="block text-sm font-medium leading-6 text-gray-900">
+                           NID Number
+                        </label>
+                        <div className="mt-2">
+                           <input
+                              type="text"
+                              min="1"
+                              name="nid_number"
+                              id="nid_number"
+                              autoComplete="off"
+                              value={nidNumber}
+                              onChange={(e) => setNidNumber(e.target.value)}
+                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                              placeholder="Enter NID Number"
+                           />
+                        </div>
+                     </div>
+
+                     <div className="sm:col-span-3">
+                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                           Email Address
+                        </label>
+                        <div className="mt-2">
+                           <input
+                              type="email"
+                              min="1"
+                              name="email"
+                              id="email"
+                              autoComplete="off"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                              placeholder="Enter Email Address"
+                           />
+                        </div>
+                     </div>
+
                      <div className="sm:col-span-3">
                         <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
-                           Title
+                           Balance
                         </label>
                         <div className="mt-2">
                            <input
