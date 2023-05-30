@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+use App\Models\Account;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendAccountStatementMail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/test', function () {
+    $account = Account::with('account_type', 'branch')->first();
+
+    Mail::to($account->email)->send(new SendAccountStatementMail($account));
+
+    dd('sent');
+});
 
 Route::get('/', function () {
     return view('welcome');

@@ -12,7 +12,7 @@ const Dashboard = () => {
    function titleCase(string){
 
       // return string[0].toUpperCase() + string.slice(1).toLowerCase();
-      
+
       const words = string.split(" ");
 
       for (let i = 0; i < words.length; i++) {
@@ -58,7 +58,7 @@ const Dashboard = () => {
 
    return (
       <>
-         <PageComponent title='Dashboard'>
+         <PageComponent title='All Accounts'>
 
             {message && (
                <div className="bg-green-100 my-3 border-t-4 border-green-500 rounded-b text-green-900 px-4 py-3 shadow-md" role="alert">
@@ -75,7 +75,7 @@ const Dashboard = () => {
             }
 
             <div className="flex justify-between">
-               <h1> Dashboard Content </h1> 
+               <h1> Account details of all customers</h1>
                <TButton to="/create">
                   Create Account
                </TButton>

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('account_type_id');
             $table->unsignedBigInteger('branch_id');
+            $table->string('email');
             $table->string('account_number');
             $table->unsignedBigInteger('balance');
             $table->string('status');

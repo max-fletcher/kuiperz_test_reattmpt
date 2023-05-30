@@ -1,0 +1,13 @@
+STEPS TO RUN THE APPLICATION:
+
+1.INSIDE BACKEND
+ A)RUN "composer update"
+ B)RUN "npm install"
+ C)CHANGE .env>example TO .env AND CHANGE THE DATABASE CONNECTION AND MAILTRAP CREDENTIALS
+ D)OPTIONAL - RUN "php artisan db:seed" TO SEED TEST DATA
+ E)KEEP "php artisan schedule:work" RUNNING IN 1 TERMINAL
+ F)KEEP "php artisan serve" RUNNING IN 1 TERMINAL
+
+2. INSIDE FRONTEND
+ A)RUN "npm install"
+ B)KEEP "npm run dev" RUNNING IN 1 TERMINAL

@@ -49,7 +49,8 @@ class DatabaseSeeder extends Seeder
             // $v = $statuses[$k];
 
             DB::table('accounts')->insert([
-                'account_number'   => $i,
+                'account_number'   => 10000000 + $i,
+                'email'            => fake()->email(),
                 'balance'          => rand(1000, 10000000),
                 'status'           => $statuses[array_rand($statuses)],
                 'branch_id'        => $branch->id,
