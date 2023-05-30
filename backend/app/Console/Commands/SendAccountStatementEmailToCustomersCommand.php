@@ -21,7 +21,7 @@ class SendAccountStatementEmailToCustomersCommand extends Command
      *
      * @var string
      */
-    protected $description = 'For sending monthly account statements to every user at end of every month';
+    protected $description = 'For sending monthly account statements to every user at the end of every month';
 
     /**
      * Execute the console command.

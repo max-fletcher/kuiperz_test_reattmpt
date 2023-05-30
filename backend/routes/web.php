@@ -17,13 +17,12 @@ use App\Mail\SendAccountStatementMail;
 |
 */
 
-Route::get('/test', function () {
-    $account = Account::with('account_type', 'branch')->first();
-
-    Mail::to($account->email)->send(new SendAccountStatementMail($account));
-
-    dd('sent');
-});
+// FOR TESTING MAIL
+// Route::get('/test', function () {
+//     $account = Account::with('account_type', 'branch')->first();
+//     Mail::to($account->email)->send(new SendAccountStatementMail($account));
+//     dd('sent');
+// });
 
 Route::get('/', function () {
     return view('welcome');
